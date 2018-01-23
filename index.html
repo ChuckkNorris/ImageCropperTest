@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>Image Cropper</title>
+    <script type='text/javascript' src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script type='text/javascript' src="./node_modules/cropper/dist/cropper.min.js"></script>
+    
+    <link rel="stylesheet" href="./node_modules/cropper/dist/cropper.css" />
+    <style>
+        /* Limit image width to avoid overflow the container */
+        img {
+        max-width: 100%; /* This rule is very important, please do not ignore this! */
+        }
+    </style>
+  </head>
+  <body>
+      <script>
+          function neato() {
+            const dataUrl = $('#image').cropper('getCroppedCanvas').toDataURL('image/jpeg');
+            console.log('CROPING!', dataUrl);
+            $('#giraffe').attr('src', dataUrl);
+        }
+      </script>
+    <h1>If you see this, it's sort of working</h1>
+    <!-- Wrap the image or canvas element with a block element (container) -->
+    <div>
+        <img id="image" src="http://listverse.wpengine.netdna-cdn.com/wp-content/uploads/2017/06/7a-giraffes-521080824.jpg">
+        <img id="giraffe" >
+    </div>
+    <button onClick="neato()">Crop It!</button>
+    <script>
+        $('#image').cropper({
+            aspectRatio: 16 / 9,
+            crop: function(e) {
+                // Output the result data for cropping imageC
+                console.log(e.x);
+                console.log(e.y);
+                console.log(e.width);
+                console.log(e.height);
+                console.log(e.rotate);
+                console.log(e.scaleX);
+                console.log(e.scaleY);
+            }
+        });
+        console.log('She lives');
+        
+    </script>
+  </body>
+</html>
